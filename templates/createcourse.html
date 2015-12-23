@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block content %}
+ <form method="post" action=".">{% csrf_token %}
+        <div class="form-group">
+            <label for="client name">Client:</label>
+            <select class="assign assignee btn" name="t_assign" id="t_assign" onchange="getProject(this.value)">
+                <option value="Client">Client</option>
+                {% for c in clients %}
+					<option value="{{ c.id }}">{{ c.clientname }}</option>
+				 {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="client name">Project:</label>
+            <select class="assign assignee btn" name="t_assign" id="ak">
+                <option value="Project">Project</option>
+                    {%  for p in projects %}
+                    <option value="{{ p.id }}">{{ p.projectname }}</option>
+                    {% endfor %}
+            </select>
+
+        </div>
+        <div class="form-group">
+            <label for="client name">Course Name {{ form.coursename }}</label>
+        </div>
+
+        </a href = "/home"><input type="submit" value="createcourse"/></a>
+    </form>
+
+    <script>
+
+     function getProject(v)
+    {
+
+        $.post("/p_ajax/",{varclientid:v},function(data)
+        {
+
+            $("#ak").html(data);
+
+        })
+
+    }
+
+    $(document).ready(function(){
+        $("#id").click(Function(){
+            $(this).show();
+
+        });
+    });
+            </script>
+
+{% endblock %}
+

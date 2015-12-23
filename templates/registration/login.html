@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% block content %}
+        <style>
+
+        .container-fluid{
+            text-align: center;
+            width : 100%;
+            height: auto;
+
+        }
+
+        .main{
+            margin: auto;
+            width:30%;
+
+        }
+        form{
+            text-align:center;
+
+        }
+        .panel-default{
+                border: 1px solid white;
+                background-color: #f0f0f0;
+                width: 68%;
+                height: auto;
+                min-height: 1px;
+                margin-top: 17em;
+                padding: 20px;
+                text-align: center;
+                margin-left: auto;
+                margin-right: auto;
+        }
+
+        .glyphicon-user{
+                background-color: #02eeae;
+                border-radius: 124px;
+                position: relative;
+                top: 263px;
+                bottom: auto;
+                padding: 12px;
+                font-size: 22px;
+                color:#20887d;
+                box-shadow:1px 1px 2px grey;
+        }
+            .heading{
+                text-align: center;
+                margin-top: 30px;
+                color:grey;
+                font-size:18px;
+
+            }
+            input{
+                color: grey;
+                font-style: italic;
+
+            }
+        .custom-login-button{
+            font-style: normal;;
+            color:white;
+            width:100%;
+            background-color:#00a8ff;
+            padding:5px 0px;
+            border-top:none;
+            border-left:none;
+            border-right:none;
+            border-bottom:2px solid grey;
+        }
+
+    </style>
+
+    <div class="container-fluid">
+        <div class="main">
+ <span class="glyphicon glyphicon-user"></span>
+             <div class="pnel panel-default">
+
+                    <div class="heading">
+                       LOGIN SCREEN
+                    </div>
+                    <div class="panel-body">
+                         {% if form.errors %}
+                            <p>Your username and password didn't match.Please try again.</p>
+                        {% endif %}
+                       <form role="form" method="post" action=".">{% csrf_token %}
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="id_username" placeholder="Username" value="{{ form.username|default_if_none:"" }}">
+                            </div>
+                           <div class="form-group">
+                                <input type="password" class="form-control" id="pwd" placeholder="Password" {{ form.password }}
+                            </div>
+                            <input type="submit" class="custom-login-button" value="LOGIN">
+                              <input type="hidden" name="next" value="/home" />
+                        </form>
+
+                    </div>
+
+             </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        document.getElementById('id_username').focus()
+    </script>
+
+
+
+{% endblock %}
+

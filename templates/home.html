@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% block content %}
+       <div align="right"><a href="/logout/">Logout</a></div>
+    {% if user.is_superuser %}
+        <h2>{{ user.username }}Dashboard</h2>
+        <p>Welcome {{ user.username }} !!!</p>
+
+         <table border="1px">
+     <thead>
+     <tr>
+     <th>Users</th>
+     <th>Clints</th>
+     <th>Projects</th>
+     <th>Course</th>
+     </tr>
+     </thead>
+     <tbody>
+     <tr>
+
+         <td>
+             {% for user in UserData %}
+             <ul><li>{{ user.username}}</li></ul>
+         {% endfor %}
+         <a href="/createuser">Create User</a>|
+         </td>
+
+         <td>
+         {% for c in ClientData %}
+             <ul><li>{{ c.clientname }}</li></ul>
+         {% endfor %}
+             <a href="/createclient">Create Client</a>|
+         </td>
+
+      <td>
+          {% for p in ProjectData %}
+
+              <ul><li>{{ p.projectname}}</li></ul>
+          {% endfor %}
+          <a href="/createproject">Create Project</a>|
+      </td>
+
+         <td>
+         {% for c in CourseData %}
+             <ul><li>{{ c.coursename}}</li></ul>
+         {% endfor %}
+             <a href="/createcourse"> + Create Course</a>
+        </td>
+     </tr>
+     </tbody>
+     </table>
+
+        <h2>User Time sheet </h2>
+            <table border="1px">
+            <thead>
+            <tr>
+                <th>User</th>
+                <th>Date</th>
+                <th>Clint</th>
+                <th>Project</th>
+                <th>Course</th>
+                <th>Department</th>
+                <th>Task</th>
+                <th>Task Type</th>
+                <th>Effort</th>
+            </tr>
+            </thead>
+            <tbody>
+
+             {% for i in UserTimesheet %}
+                 <tr>
+                 <td>{{user.username}}</td>
+                 <td>{{i.date}}</td>
+                  <td>{{i.client}}</td>
+                  <td>{{i.project}}</td>
+                  <td>{{i.course}}</td>
+                       <td>{{i.department}}</td>
+
+                  <td>{{i.task_description}}</td>
+                  <td>{{i.task_type}}</td>
+                  <td>{{i.effort_hours}}.{{ i.effort_minutes }}</td>
+                 </tr>
+         {% endfor %}
+
+
+
+        </tbody>
+        </table>
+
+
+
+
+
+    {% else %}
+            <h2>Dashboard</h2>
+
+        <p>Welcome {{ user.username }} !!!</p>
+
+        <div align="center"> Provide your status <a href = "/user_statustimesheet">Timesheet</a>here.</div>
+
+
+    {% endif %}
+
+{% endblock %}
